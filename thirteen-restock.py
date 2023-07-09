@@ -42,7 +42,7 @@ def check_stock(html, colour, url):
         if (is_btn_enabled or isRestocked):
             logging.info(f"{colour} is back in stock. Proceeding to send email notification.")
             subject = f"{colour} is in stock!!".upper()
-            body = f"{colour} is finally in stock!! Here's the link: {url}".upper()
+            body = f"{colour} is finally in stock!! Here's the link: {url}"
             send_email(subject, body)
 
         else:
@@ -57,7 +57,7 @@ def check_stock(html, colour, url):
 def send_email(subject, body):
     sender = "sending.ved@gmail.com"
     recipients = ["notification.ved@gmail.com", "jess986.sendit@proton.me"]
-    password = "{password}"
+    password = "mdyrtromcvsssfus"
 
     msg = MIMEText(body)
     msg['Subject'] = subject
