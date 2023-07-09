@@ -48,7 +48,7 @@ def check_stock(html, colour, url):
 def send_email(subject, body):
     sender = "sending.ved@gmail.com"
     recipients = ["notification.ved@gmail.com", "jess986.sendit@proton.me"]
-    password = "mdyrtromcvsssfus"
+    password = "{password}"
 
     msg = MIMEText(body)
     msg['Subject'] = subject
