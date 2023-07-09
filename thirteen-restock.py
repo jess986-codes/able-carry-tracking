@@ -24,7 +24,6 @@ def request_page(url):
         logging.error('Encountered issue with loading site')
         exit()
 
-
 def check_stock(html, colour, url):
     selected_colour = html.find(class_='swatch__label--color').find(class_='swatch__value').text.lower()
     is_colour = colour in selected_colour
@@ -40,19 +39,11 @@ def check_stock(html, colour, url):
         isRestocked = constants.RESTOCKED_TEXT in add_btn_txt
 
         if (is_btn_enabled or isRestocked):
-            logging.info(f"{colour} is back in stock. Proceeding to send email notification.")
-            subject = f"{colour} is in stock!!".upper()
-            body = f"{colour} is finally in stock!! Here's the link: {url}"
-            send_email(subject, body)
-
+            send_success_email(colour, url)
         else:
             logging.info(f"{colour} is not in stock yet")
     else:
-        logging.error('Wrong link, need to check link again')
-        subject = f"The link for {colour} is wrong"
-        body = f"The link for {colour} is wrong. Check this link: {url}"
-        send_email(subject, body)
-    
+        send_error_email(colour, url)
 
 def send_email(subject, body):
     sender = "sending.ved@gmail.com"
@@ -68,6 +59,17 @@ def send_email(subject, body):
        smtp_server.sendmail(sender, recipients, msg.as_string())
     print("Message sent!")
 
+def send_success_email(product, url):
+    logging.info(f"{product} is back in stock. Proceeding to send email notification.")
+    subject = f"{product} is in stock!!".upper()
+    body = f"{product} is finally in stock!! Here's the link: {url}"
+    send_email(subject, body)
+
+def send_error_email(product, url):
+    logging.error('Wrong link, need to check link again')
+    subject = f"The link for {product} is wrong".upper()
+    body = f"The link for {product} is wrong. Check this link: {url}"
+    send_email(subject, body)
 
 # SCRIPT
 def main():
