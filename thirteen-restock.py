@@ -57,7 +57,7 @@ def send_email(subject, body):
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
        smtp_server.login(sender, password)
        smtp_server.sendmail(sender, recipients, msg.as_string())
-    print("Message sent!")
+    logging.info("Message sent!")
 
 def send_success_email(product, url):
     logging.info(f"{product} is back in stock. Proceeding to send email notification.")
